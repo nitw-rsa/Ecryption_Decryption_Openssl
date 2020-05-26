@@ -1,0 +1,22 @@
+ENCRYPT THE DATA:-
+	openssl enc -aes-256-cbc -in un_encrypted.data -out encrypted.data
+
+
+DECRYPT THE DATA:-
+	openssl enc -d -aes-256-cbc -in encrypted.data -out un_encrypted.data
+
+
+
+CALCULATE HASH DIGEST OF THE DATA:-
+	openssl dgst -sha1 -binary data.txt > hash
+	openssl dgst -sha256 -binary data.txt > hash
+	openssl dgst -sha384 -binary data.txt > hash
+
+
+
+SIGN THE DATA AND VERIFY THE SIGNATURE:-
+	GET THE SHA-1 OF THE DATA-
+	GENERATE RSA-KEY PAIR- openssl genrsa -out myprivate.pem 512
+	GET THE PUBLIC KEY FROM PRIVATE KEY- openssl rsa -in myprivate.pem -pubout > mypublic.pem
+	SIGN THE DATA(ENCRYPT THE HASH OF DATA USING PRIVATE KEY)- openssl dgst -sha1 -sign myprivate.pem -out sha1.sign myfile.txt
+	VERIFY THE SIGNATURE- openssl dgst -sha1 -verify mypublic.pem -signature sha1.sign data.txt
